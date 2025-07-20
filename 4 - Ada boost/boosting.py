@@ -128,7 +128,7 @@ class AdaBoostClassifier:
 			sample_weights[cur_idx[cur_Y == y_pred]] *= np.exp(-alpha)
 			sample_weights /= np.sum(sample_weights)
 
-			if verbose:
+			if verbose and l % 10 == 0:
 				self._plot(cur_X, y_pred, sample_weights[cur_idx],
 						   self.learners[-1], l)
 
@@ -161,6 +161,9 @@ class AdaBoostClassifier:
 		pred = np.sign(np.sum(pred_all_learners, axis=1))
 
 		return pred
+
+
+
 
 	def _plot(self, X: np.ndarray, y_pred: np.ndarray, weights: np.ndarray,
 			  learner: WeakClassifier, iteration: int):

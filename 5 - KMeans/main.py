@@ -37,7 +37,7 @@ if __name__ == '__main__':
 
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--dataset', choices=('gaussians', 'twomoon', 'avengers'),
-						default='twomoon')
+						default='gaussians')
 	p = parser.parse_args()
 
 	if p.dataset == 'gaussians':

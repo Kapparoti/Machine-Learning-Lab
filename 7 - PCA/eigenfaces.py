@@ -116,7 +116,7 @@ class Eigenfaces:
 		return (X - self._x_mean) @ self._ef
 
 	def inverse_transform(self, X: np.ndarray):
-		return X @ self._ef.T + self._x_mean
+		return (X @ self._ef.T) + self._x_mean
 
 
 class NearestNeighbor:

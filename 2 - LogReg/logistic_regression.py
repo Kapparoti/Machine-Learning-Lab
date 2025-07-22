@@ -110,7 +110,7 @@ class LogisticRegression:
 		n_samples, n_features = X.shape
 
 		# weight initialization
-		self.w = np.random.randn(n_features) * 0.001
+		self._w = np.random.randn(n_features) * 0.001
 
 		for e in range(n_epochs):
 
@@ -118,7 +118,7 @@ class LogisticRegression:
 			# Compute predictions
 			# -> p = ...
 			"""
-			p = sigmoid(X @ self.w)
+			p = sigmoid(X @ self._w)
 
 			"""
 			# Print loss between Y and predictions p
@@ -135,7 +135,7 @@ class LogisticRegression:
 			# -> self.w = ...
 			"""
 
-			self.w = self.w - learning_rate * dloss_dw(Y, p, X)
+			self._w = self._w - learning_rate * dloss_dw(Y, p, X)
 
 
 	def predict(self, X):
@@ -162,4 +162,4 @@ class LogisticRegression:
 		"""
 
 		# remove random prections before coding the solution
-		return np.round(sigmoid(X @ self.w))
+		return np.round(sigmoid(X @ self._w))

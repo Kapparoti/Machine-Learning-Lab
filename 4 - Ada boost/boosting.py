@@ -20,14 +20,14 @@ class WeakClassifier:
 		possible_labels = np.unique(Y)
 
 		# select random feature (see np.random.choice)
-		self._dim = np.random.choice(a=range(0, d))
+		self._dim = np.random.choice(range(0, d))
 
 		# select random split (see np.random.uniform)
 		M, m = np.max(X[:, self._dim]), np.min(X[:, self._dim])
 		self._threshold = np.random.uniform(low=m, high=M)
 
 		# select random verse (see np.random.choice)
-		self._label_above_split = np.random.choice(a=possible_labels)
+		self._label_above_split = np.random.choice(possible_labels)
 
 	def predict(self, X: np.ndarray):
 		num_samples = X.shape[0]
@@ -91,7 +91,7 @@ class AdaBoostClassifier:
 		for l in range(self.n_learners):
 
 			# choose the indexes of 'difficult' samples (np.random.choice)
-			cur_idx = np.random.choice(a=range(0, n), size=n, replace=True, p=sample_weights)
+			cur_idx = np.random.choice(range(n), size=n, replace=True, p=sample_weights)
 
 			# extract 'difficult' samples
 			cur_X = X[cur_idx]

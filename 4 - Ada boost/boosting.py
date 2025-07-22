@@ -20,16 +20,17 @@ class WeakClassifier:
 		possible_labels = np.unique(Y)
 
 		# select random feature (see np.random.choice)
-		self._dim = np.random.choice(range(0, d))
+		self._dim = np.random.choice(d)
 
 		# select random split (see np.random.uniform)
-		M, m = np.max(X[:, self._dim]), np.min(X[:, self._dim])
-		self._threshold = np.random.uniform(low=m, high=M)
+		self._threshold = np.random.uniform(np.min(X[:, self._dim]), np.max(X[:, self._dim]))
 
 		# select random verse (see np.random.choice)
 		self._label_above_split = np.random.choice(possible_labels)
 
 	def predict(self, X: np.ndarray):
+		return np.where(X[:, self._dim] >= self._threshold, self._label_above_split, -1 * self._label_above_split)
+
 		num_samples = X.shape[0]
 		y_pred = np.zeros(shape=num_samples)
 		y_pred[X[:, self._dim] >= self._threshold] = self._label_above_split
@@ -91,7 +92,7 @@ class AdaBoostClassifier:
 		for l in range(self.n_learners):
 
 			# choose the indexes of 'difficult' samples (np.random.choice)
-			cur_idx = np.random.choice(range(n), size=n, replace=True, p=sample_weights)
+			cur_idx = np.random.choice(n, size=n, replace=True, p=sample_weights)
 
 			# extract 'difficult' samples
 			cur_X = X[cur_idx]
@@ -103,10 +104,10 @@ class AdaBoostClassifier:
 			cur_wclass = None
 			y_pred = None
 
+			cur_wclass = WeakClassifier()
 			while error > 0.5:
-
-				cur_wclass = WeakClassifier()
 				cur_wclass.fit(cur_X, cur_Y)
+
 				y_pred = cur_wclass.predict(cur_X)
 
 				# compute error
@@ -162,11 +163,7 @@ class AdaBoostClassifier:
 
 		return pred
 
-
-
-
-	def _plot(self, X: np.ndarray, y_pred: np.ndarray, weights: np.ndarray,
-			  learner: WeakClassifier, iteration: int):
+	def _plot(self, X: np.ndarray, y_pred: np.ndarray, weights: np.ndarray, learner: WeakClassifier, iteration: int):
 
 		# plot
 		plt.clf()

@@ -82,10 +82,14 @@ class SVM:
 		# loop over epochs
 		for e in range(1, self._n_epochs + 1):
 			for j in range(n_samples):
+
 				X_j, y_j = X[j, :], Y[j]
+
 				t += 1
 				n_t = 1.0 / (t * self._lambda)
-				X_j_pred = np.dot(X_j, self._w)
+
+				X_j_pred = X_j @ self._w
+
 				if y_j * X_j_pred < 1:
 					self._w = (1.0 - n_t * self._lambda) * self._w + n_t * y_j * X_j
 				else:

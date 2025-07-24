@@ -107,4 +107,4 @@ class SVM:
 	def predict(self, X):
 		if self._use_bias:
 			X = np.concatenate([X, np.ones((X.shape[0], 1), dtype=X.dtype)], axis=-1)
-		return np.where(np.dot(X, self._w) > 0.0, self._original_labels[1], self._original_labels[0])
+		return np.where((X @ self._w) > 0.0, self._original_labels[1], self._original_labels[0])

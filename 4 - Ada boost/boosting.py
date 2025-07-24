@@ -29,14 +29,13 @@ class WeakClassifier:
 		self._label_above_split = np.random.choice(possible_labels)
 
 	def predict(self, X: np.ndarray):
-		return np.where(X[:, self._dim] >= self._threshold, self._label_above_split, -1 * self._label_above_split)
+		return np.where(X[:, self._dim] > self._threshold, self._label_above_split, -1 * self._label_above_split)
 
-		num_samples = X.shape[0]
-		y_pred = np.zeros(shape=num_samples)
-		y_pred[X[:, self._dim] >= self._threshold] = self._label_above_split
-		y_pred[X[:, self._dim] < self._threshold] = -1 * self._label_above_split
-
-		return y_pred
+		# num_samples = X.shape[0]
+		# y_pred = np.zeros(shape=num_samples)
+		# y_pred[X[:, self._dim] >= self._threshold] = self._label_above_split
+		# y_pred[X[:, self._dim] < self._threshold] = -1 * self._label_above_split
+		# return y_pred
 
 
 class AdaBoostClassifier:
